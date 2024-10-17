@@ -1,3 +1,5 @@
+Nhớ đổi tên nhá
+
 # Use an official Python runtime as a parent image
 FROM python:3.12-slim
 
@@ -14,4 +16,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 25032
 
 # Run app.py when the container launches
-CMD ["streamlit", "run", "main.py"]
+CMD ["streamlit", "run", "main.py", "--server.port", "25032"]

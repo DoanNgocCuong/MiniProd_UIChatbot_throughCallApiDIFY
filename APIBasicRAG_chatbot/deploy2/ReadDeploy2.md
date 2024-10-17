@@ -26,17 +26,18 @@ Ensure you are running the Streamlit app from the correct directory. You should 
 streamlit run main.py
 ```
 
-###
+### HOW TO RUN - LOCAL 
 1. Create virtual env sử dụng `python -m venv .venv`
 2. Truy vào vào `venv` bằng run Terminal: `.venv/Scripts/activate`
 3. Install requirements.txt sử dụng `pip install -r requirements.txt`
 4. Run test thử 1 số hàm độc lập xem còn hoạt động không, nhất là hàm backend chính `Threading_ExtendedChatAssistant`
 5. `cd` vào `APIBasicRAG_chatbot`, cd vào `deploy2` sau đó `streamlit run main.py`
 
-------------------------------
-First, make sure Docker Desktop is installed and running on your Windows machine.
 
-1. Create a Dockerfile in your project root:
+------------------------------
+### HOW TO DEPLOY: 
+
+1. Cuong have created a Dockerfile in your project root:
 
 ```dockerfile
 # Use an official Python runtime as a parent image
@@ -76,6 +77,7 @@ docker run --env-file .env -p 8501:8501 apibasicrag-chatbot
 ```
 
 
+----------------
 chú ý : 
 1. THAY .env và config.py 
 2. SET UP ĐÚNG CÁC TRƯỜNG DỮ LIỆU TRONG BASE:
