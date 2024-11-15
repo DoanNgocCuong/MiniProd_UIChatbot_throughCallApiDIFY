@@ -47,6 +47,30 @@ Dưới đây là cấu trúc JSON mà bạn cần gửi trong yêu cầu:
 }
 ```
 
+cRUL 
+```bash
+curl --location 'http://103.253.20.13:9225/flashrag/rag/custom/generate' \
+--header 'Content-Type: application/json' \
+--data '{
+    "api_key": "KB-20240930155359526614ElULtm4UAWTWqIpO0VFwAHUN9ntITvHe",
+    "text": "Khách hàng đã gặp vấn đề gì khi giao tiếp",
+    "top_k": 5,
+    "return_doc": false,
+    "prompt": [
+        {
+            "role": "system",
+            "content": "You are an intelligent assistant. Please answer the question based on content of knowledge base. When all knowledge base content is irrelevant to the question, your answer must include the sentence '\''The answer you are looking for is not found in the knowledge base!'\''. Answers need to consider chat history. Knowledge base content is as following:\n{{REFERENCE}}"
+        },
+        {
+            "role": "user",
+            "content": "The question is: '\''{{TEXT}}'\''. Answer only the question and do not output any other words."
+        }
+    ],
+    "format_content": "Doc {{INDEX}}: {{TITLE}}\n {{CONTENT}}\n"
+}'
+```
+
+
 ### 3. **Response JSON**
 Khi bạn gửi yêu cầu, bạn sẽ nhận được phản hồi với cấu trúc như sau:
 
