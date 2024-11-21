@@ -4,6 +4,8 @@ const sendButton = document.getElementById('send-button');
 
 let conversationId = ""; // Quản lý conversation_id cho hội thoại
 
+const BACKEND_URL = 'http://localhost:25039';
+
 // Hàm hiển thị tin nhắn
 function displayMessage(text, sender) {
     const messageDiv = document.createElement('div');
@@ -23,7 +25,7 @@ async function sendMessage() {
     userInput.value = ""; // Xóa nội dung input
 
     // Gửi tin nhắn đến backend
-    const response = await fetch('http://127.0.0.1:25039/send_message', {
+    const response = await fetch(`${BACKEND_URL}/send_message`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

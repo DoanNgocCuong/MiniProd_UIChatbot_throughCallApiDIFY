@@ -9,7 +9,8 @@ function initChatbot(options = {}) {
     const config = {...defaultOptions, ...options};
     
     const iframe = document.createElement('iframe');
-    iframe.src = 'http://localhost:25040/index.html';
+    iframe.src = `http://localhost:25040/index.html?t=${Date.now()}`;
+    iframe.allow = "microphone *";
     iframe.style.cssText = `
         position: fixed;
         bottom: 20px;
