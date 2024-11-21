@@ -1,0 +1,352 @@
+{
+  "panelChats": [],
+  "inlineChats": [],
+  "schemaVersion": "1.0",
+  "deletedChats": {
+    "deletedMessageIDs": [],
+    "deletedPanelChatIDs": []
+  },
+  "kv_store": {
+    "unique_matched_lines_count": 0,
+    "total_repo_line_count": 5569,
+    "best_prompt_response": null,
+    "file_statistics": [
+      {
+        "file": ".idea/MiniProd_UIChatbot_throughCallApiDIFY.iml",
+        "total_lines": 14,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": ".idea/inspectionProfiles/Project_Default.xml",
+        "total_lines": 6,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": ".idea/inspectionProfiles/profiles_settings.xml",
+        "total_lines": 6,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": ".idea/misc.xml",
+        "total_lines": 4,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": ".idea/modules.xml",
+        "total_lines": 8,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": ".idea/vcs.xml",
+        "total_lines": 6,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": ".vscode/settings.json",
+        "total_lines": 3,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ChatMemoryClassCustomize.py",
+        "total_lines": 37,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ChatbotMemoryDIFY.py",
+        "total_lines": 37,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "New Text Document.txt",
+        "total_lines": 1,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "Note1_MemoryChatbot.ipynb",
+        "total_lines": 1060,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "Note2_Embed.ipynb",
+        "total_lines": 218,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "README.md",
+        "total_lines": 38,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "__pycache__/ChatMemoryClass.cpython-312.pyc",
+        "total_lines": 10,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "apiChatbot.md",
+        "total_lines": 280,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "apiWorkflow.md",
+        "total_lines": 59,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/.env_example.md",
+        "total_lines": 12,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/Dockerfile",
+        "total_lines": 17,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/Dockerfile_Server.md",
+        "total_lines": 20,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/ReadDeploy2.md",
+        "total_lines": 85,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/Tracking - Chatbot + WebTest.base",
+        "total_lines": 1,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/backend_package/ChatAssistant_class.py",
+        "total_lines": 131,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/backend_package/Threading_ExtendedChatAssistant_class_useCheckTenantAccessToken.py",
+        "total_lines": 129,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/backend_package/backend.py",
+        "total_lines": 74,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/backend_package/createRecord_checkTenantAccessToken_funct.py",
+        "total_lines": 71,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/backend_package/createRecord_tenantAccessToken_funct.py",
+        "total_lines": 54,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/backend_package/get_tenantAccessToken_funct.py",
+        "total_lines": 39,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/config.py",
+        "total_lines": 6,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/deploy2_main.py",
+        "total_lines": 57,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/frontend_package/frontend.py",
+        "total_lines": 116,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/main.py",
+        "total_lines": 57,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/requirements.txt",
+        "total_lines": 5,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/deploy2/tenantAccessToken_storage.txt",
+        "total_lines": 1,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "ckp/test_APIBasicRAG_chatbot.py",
+        "total_lines": 71,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "deploy1.1/backend/Dockerfile",
+        "total_lines": 12,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "deploy1.1/backend/app.py",
+        "total_lines": 108,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "deploy1.1/backend/requirements.txt",
+        "total_lines": 3,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "deploy1.1/docker-compose.yml",
+        "total_lines": 34,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "deploy1.1/frontend/Dockerfile",
+        "total_lines": 21,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "deploy1.1/frontend/embed.js",
+        "total_lines": 29,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "deploy1.1/frontend/index.html",
+        "total_lines": 26,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "deploy1.1/frontend/package.json",
+        "total_lines": 12,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "deploy1.1/frontend/script.js",
+        "total_lines": 56,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "deploy1.1/frontend/style.css",
+        "total_lines": 78,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "example-website.html",
+        "total_lines": 23,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "note/Note1_MemoryChatbot.ipynb",
+        "total_lines": 1060,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "note/Note2_Embed.ipynb",
+        "total_lines": 218,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "note/Note3_Docker.ipynb",
+        "total_lines": 543,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "note/Note4_dockerWithEmbed_CORS.ipynb",
+        "total_lines": 248,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "src_1.0/app.py",
+        "total_lines": 106,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "src_1.0/embed.js",
+        "total_lines": 28,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "src_1.0/index.html",
+        "total_lines": 26,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "src_1.0/requirements.txt",
+        "total_lines": 2,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "src_1.0/script.js",
+        "total_lines": 54,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "src_1.0/style.css",
+        "total_lines": 78,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "test_APIBasicRAG_chatbot copy.py",
+        "total_lines": 71,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      }
+    ]
+  }
+}

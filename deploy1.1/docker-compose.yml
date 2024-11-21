@@ -24,6 +24,10 @@ services:
       - "25040:5000"
     depends_on:
       - backend
+    # Để đồng bộ code giữa máy host và container 
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     environment:
       - NODE_ENV=production
       - PUBLIC_URL=http://localhost:25040

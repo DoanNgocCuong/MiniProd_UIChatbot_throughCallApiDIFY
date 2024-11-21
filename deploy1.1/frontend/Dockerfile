@@ -1,3 +1,5 @@
+# frontend/Dockerfile
+
 # Base image để chạy Node.js
 FROM node:18-alpine 
 
