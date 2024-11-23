@@ -1408,6 +1408,109 @@
               "1": "d:\\OneDrive - Hanoi University of Science and Technology\\GIT\\MiniProd_UIChatbot_throughCallApiDIFY\\deploy1.2_EmbedWithColabMindpal\\update_closeXChatbot.ipynb"
             }
           }
+        },
+        {
+          "id": "88668447-d406-45d9-9d33-062b7967fbb4",
+          "messageText": "triệu hồi rồi mà sao chatbot chỉ hiện cái bảng trắng",
+          "responseText": "I see the issue. The problem is that when we show the iframe again, the chat container inside it is still hidden. We need to modify both `embed.js` and `script.js` to properly handle showing/hiding the chat interface.\n\n1. First, let's modify `embed.js`:\n\n```javascript:deploy1.2_EmbedWithColabMindpal/frontend/embed.js\nfunction initChatbot(options = {}) {\n    const defaultOptions = {\n        position: 'right',\n        width: '350px',\n        height: '500px',\n        theme: 'light'\n    };\n\n    const config = {...defaultOptions, ...options};\n    \n    const toggleButton = document.createElement('button');\n    toggleButton.id = 'chatbot-toggle';\n    toggleButton.innerHTML = '💬';\n    toggleButton.style.cssText = `\n        position: fixed;\n        bottom: 20px;\n        ${config.position}: 20px;\n        width: 50px;\n        height: 50px;\n        border-radius: 50%;\n        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n        border: none;\n        color: white;\n        font-size: 24px;\n        cursor: pointer;\n        box-shadow: 0 2px 10px rgba(0,0,0,0.2);\n        z-index: 999999;\n        display: none;\n    `;\n    \n    document.body.appendChild(toggleButton);\n\n    const iframe = document.createElement('iframe');\n    iframe.id = 'chatbot-iframe';\n    iframe.src = `http://localhost:25040/index.html?t=${Date.now()}`;\n    iframe.allow = \"microphone *\";\n    iframe.style.cssText = `\n        position: fixed;\n        bottom: 20px;\n        ${config.position}: 20px;\n        width: ${config.width};\n        height: ${config.height};\n        border: none;\n        border-radius: 10px;\n        box-shadow: 0 2px 10px rgba(0,0,0,0.2);\n        z-index: 999999;\n    `;\n    \n    document.body.appendChild(iframe);\n\n    // Toggle button click handler\n    toggleButton.addEventListener('click', () => {\n        iframe.contentWindow.postMessage({ type: 'showChatbot' }, '*');\n        iframe.style.display = 'block';\n        toggleButton.style.display = 'none';\n    });\n\n    // Listen for close message from iframe\n    window.addEventListener('message', (event) => {\n        if (event.data && event.data.type === 'closeChatbot') {\n            iframe.style.display = 'none';\n            toggleButton.style.display = 'block';\n        }\n    });\n\n    window.chatbot = {\n        sendMessage: (message) => {\n            iframe.contentWindow.postMessage({ type: 'sendMessage', message }, '*');\n        }\n    };\n}\n```\n\n2. Then modify `script.js` to handle showing/hiding the chat container:\n\n```javascript:deploy1.2_EmbedWithColabMindpal/frontend/script.js\n// Add this at the top with other event listeners\nwindow.addEventListener('message', (event) => {\n    if (event.data && event.data.type === 'showChatbot') {\n        const chatContainer = document.querySelector('.chat-container');\n        if (chatContainer) {\n            chatContainer.style.display = 'flex';  // Use flex to maintain the layout\n        }\n    }\n    if (event.data && event.data.type === 'sendMessage') {\n        const message = event.data.message;\n        sendMessage(message);\n    }\n});\n\n// Update the close button handler\ndocument.getElementById('close-chatbot').addEventListener('click', () => {\n    const chatContainer = document.querySelector('.chat-container');\n    if (chatContainer) {\n        chatContainer.style.display = 'none';\n    } else {\n        console.error('Chat container not found!');\n    }\n\n    window.parent.postMessage({ type: 'closeChatbot' }, '*');\n});\n```\n\n3. Make sure the chat container has the correct initial display style in `style.css`:\n\n```css:deploy1.2_EmbedWithColabMindpal/frontend/style.css\n.chat-container {\n    width: 90%;\n    max-width: 800px;\n    background: #ffffff;\n    border-radius: 20px;\n    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);\n    display: flex;  /* Important! */\n    flex-direction: column;\n    position: relative;\n    height: 100vh;\n}\n```\n\nThe key changes are:\n1. Added a `showChatbot` message type to handle showing the chat container\n2. Using `display: flex` instead of `block` to maintain the layout\n3. Added proper message handling in both the parent and iframe windows\n4. Made sure the chat container takes full height of the iframe\n\nThese changes should make the chatbot appear properly when clicking the toggle button, showing the full interface instead of just a white box.",
+          "model": "claude-3.5-sonnet",
+          "timestamp": "2024-11-23T15:36:28.218Z",
+          "context": [],
+          "kv_store": {
+            "file_paths": [
+              "deploy1.2_EmbedWithColabMindpal/frontend/style.css",
+              "deploy1.2_EmbedWithColabMindpal/frontend/embed.js",
+              "deploy1.2_EmbedWithColabMindpal/frontend/script.js"
+            ],
+            "file_path_dict": {
+              "0": "deploy1.2_EmbedWithColabMindpal/frontend/embed.js",
+              "1": "deploy1.2_EmbedWithColabMindpal/frontend/script.js"
+            }
+          }
+        },
+        {
+          "id": "3d0a454f-099d-46c4-9b1e-f8b40dd9a2b2",
+          "messageText": "mở web lên cái chatbot sẽ ở dạng icon chưa hiển thị",
+          "responseText": "I'll help you modify the code so the chatbot starts as an icon and expands when clicked. We need to make changes to both `embed.js` and `script.js`.\n\n1. First, modify `embed.js`:\n\n```javascript:deploy1.2_EmbedWithColabMindpal/frontend/embed.js\nfunction initChatbot(options = {}) {\n    const defaultOptions = {\n        position: 'right',\n        width: '350px',\n        height: '500px',\n        theme: 'light'\n    };\n\n    const config = {...defaultOptions, ...options};\n    \n    const toggleButton = document.createElement('button');\n    toggleButton.id = 'chatbot-toggle';\n    toggleButton.innerHTML = '💬';\n    toggleButton.style.cssText = `\n        position: fixed;\n        bottom: 20px;\n        ${config.position}: 20px;\n        width: 50px;\n        height: 50px;\n        border-radius: 50%;\n        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n        border: none;\n        color: white;\n        font-size: 24px;\n        cursor: pointer;\n        box-shadow: 0 2px 10px rgba(0,0,0,0.2);\n        z-index: 999999;\n        display: block;  // Changed from 'none' to 'block'\n    `;\n    \n    document.body.appendChild(toggleButton);\n\n    const iframe = document.createElement('iframe');\n    iframe.id = 'chatbot-iframe';\n    iframe.src = `http://localhost:25040/index.html?t=${Date.now()}`;\n    iframe.allow = \"microphone *\";\n    iframe.style.cssText = `\n        position: fixed;\n        bottom: 20px;\n        ${config.position}: 20px;\n        width: ${config.width};\n        height: ${config.height};\n        border: none;\n        border-radius: 10px;\n        box-shadow: 0 2px 10px rgba(0,0,0,0.2);\n        z-index: 999999;\n        display: none;  // Start hidden\n    `;\n    \n    document.body.appendChild(iframe);\n\n    // Toggle button click handler\n    toggleButton.addEventListener('click', () => {\n        iframe.contentWindow.postMessage({ type: 'showChatbot' }, '*');\n        iframe.style.display = 'block';\n        toggleButton.style.display = 'none';\n    });\n\n    // Listen for close message from iframe\n    window.addEventListener('message', (event) => {\n        if (event.data && event.data.type === 'closeChatbot') {\n            iframe.style.display = 'none';\n            toggleButton.style.display = 'block';\n        }\n    });\n\n    window.chatbot = {\n        sendMessage: (message) => {\n            iframe.contentWindow.postMessage({ type: 'sendMessage', message }, '*');\n        }\n    };\n}\n\nwindow.initChatbot = initChatbot;\n```\n\n2. Then modify `script.js` to ensure the chat container is visible when shown:\n\n```javascript:deploy1.2_EmbedWithColabMindpal/frontend/script.js\n// Add this to your existing message event listener\nwindow.addEventListener('message', (event) => {\n    if (event.data && event.data.type === 'showChatbot') {\n        const chatContainer = document.querySelector('.chat-container');\n        if (chatContainer) {\n            chatContainer.style.display = 'flex';  // Use flex to maintain the layout\n        }\n    }\n    if (event.data && event.data.type === 'sendMessage') {\n        const message = event.data.message;\n        sendMessage(message);\n    }\n});\n```\n\nThe key changes are:\n1. Changed toggle button's initial `display` to `'block'`\n2. Set iframe's initial `display` to `'none'`\n3. Made sure the chat container uses `display: flex` when shown\n\nThis will make the chatbot start as a small icon (💬) and expand into the full chat interface when clicked.",
+          "model": "claude-3.5-sonnet",
+          "timestamp": "2024-11-23T15:57:57.738Z",
+          "context": [],
+          "kv_store": {
+            "file_paths": [
+              "d:\\OneDrive - Hanoi University of Science and Technology\\GIT\\MiniProd_UIChatbot_throughCallApiDIFY\\deploy1.2_EmbedWithColabMindpal\\update_closeXChatbot.ipynb",
+              "deploy1.2_EmbedWithColabMindpal/frontend/embed.js"
+            ],
+            "file_path_dict": {
+              "0": "deploy1.2_EmbedWithColabMindpal/frontend/embed.js",
+              "1": "d:\\OneDrive - Hanoi University of Science and Technology\\GIT\\MiniProd_UIChatbot_throughCallApiDIFY\\deploy1.2_EmbedWithColabMindpal\\update_closeXChatbot.ipynb"
+            }
+          }
+        },
+        {
+          "id": "fc1ac2d9-54bd-4505-b871-aced93aa133b",
+          "messageText": "nút X được viế",
+          "responseText": "Let me help you modify the code to make the chatbot start as an icon. Here are the necessary changes:\n\n1. First, update `embed.js`:\n\n```javascript:deploy1.2_EmbedWithColabMindpal/frontend/embed.js\nfunction initChatbot(options = {}) {\n    const defaultOptions = {\n        position: 'right',\n        width: '350px',\n        height: '500px',\n        theme: 'light'\n    };\n\n    const config = {...defaultOptions, ...options};\n    \n    // Create toggle button\n    const toggleButton = document.createElement('button');\n    toggleButton.id = 'chatbot-toggle';\n    toggleButton.innerHTML = '💬';\n    toggleButton.style.cssText = `\n        position: fixed;\n        bottom: 20px;\n        ${config.position}: 20px;\n        width: 50px;\n        height: 50px;\n        border-radius: 50%;\n        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n        border: none;\n        color: white;\n        font-size: 24px;\n        cursor: pointer;\n        box-shadow: 0 2px 10px rgba(0,0,0,0.2);\n        z-index: 999999;\n        display: block;  // Start visible\n        transition: transform 0.3s ease;\n    `;\n    \n    document.body.appendChild(toggleButton);\n\n    const iframe = document.createElement('iframe');\n    iframe.id = 'chatbot-iframe';\n    iframe.src = `http://localhost:25040/index.html?t=${Date.now()}`;\n    iframe.allow = \"microphone *\";\n    iframe.style.cssText = `\n        position: fixed;\n        bottom: 20px;\n        ${config.position}: 20px;\n        width: ${config.width};\n        height: ${config.height};\n        border: none;\n        border-radius: 10px;\n        box-shadow: 0 2px 10px rgba(0,0,0,0.2);\n        z-index: 999999;\n        display: none;  // Start hidden\n        transition: opacity 0.3s ease;\n    `;\n    \n    document.body.appendChild(iframe);\n\n    // Add hover effect\n    toggleButton.addEventListener('mouseover', () => {\n        toggleButton.style.transform = 'scale(1.1)';\n    });\n    \n    toggleButton.addEventListener('mouseout', () => {\n        toggleButton.style.transform = 'scale(1)';\n    });\n\n    // Toggle button click handler\n    toggleButton.addEventListener('click', () => {\n        iframe.contentWindow.postMessage({ type: 'showChatbot' }, '*');\n        iframe.style.display = 'block';\n        toggleButton.style.display = 'none';\n    });\n\n    // Listen for close message from iframe\n    window.addEventListener('message', (event) => {\n        if (event.data && event.data.type === 'closeChatbot') {\n            iframe.style.display = 'none';\n            toggleButton.style.display = 'block';\n        }\n    });\n\n    window.chatbot = {\n        sendMessage: (message) => {\n            iframe.contentWindow.postMessage({ type: 'sendMessage', message }, '*');\n        }\n    };\n}\n\nwindow.initChatbot = initChatbot;\n```\n\n2. Update `script.js` to ensure the chat container is initially visible:\n\n```javascript:deploy1.2_EmbedWithColabMindpal/frontend/script.js\n// Add this to your existing message event listener\nwindow.addEventListener('message', (event) => {\n    if (event.data && event.data.type === 'showChatbot') {\n        const chatContainer = document.querySelector('.chat-container');\n        if (chatContainer) {\n            chatContainer.style.display = 'flex';\n        }\n    }\n});\n```\n\nKey changes made:\n1. Set toggle button's initial `display` to `'block'`\n2. Set iframe's initial `display` to `'none'`\n3. Added smooth transitions for better UX\n4. Added hover effect on the toggle button\n5. Made sure the chat container uses `display: flex` when shown\n\nThese changes will make the chatbot start as a small floating icon (💬) in the bottom-right corner, and it will expand into the full chat interface when clicked.",
+          "model": "claude-3.5-sonnet",
+          "timestamp": "2024-11-23T16:29:10.120Z",
+          "context": [],
+          "kv_store": {
+            "file_paths": [
+              "deploy1.2_EmbedWithColabMindpal/frontend/script.js",
+              "deploy1.2_EmbedWithColabMindpal/frontend/embed.js"
+            ],
+            "file_path_dict": {
+              "0": "deploy1.2_EmbedWithColabMindpal/frontend/embed.js"
+            }
+          }
+        },
+        {
+          "id": "3a526210-6c47-47cc-879b-942a2610ee1e",
+          "messageText": "Xem code này với code \n\n// embed.js\nwindow.chatbot = {\n    sendMessage: async (message) => {\n        // Đảm bảo chat được mở trước\n        iframe.style.display = 'block';\n        toggleButton.style.display = 'none';\n        \n        // Đợi một chút để giao diện cập nhật\n        await new Promise(resolve => setTimeout(resolve, 100));\n        \n        // Gửi tin nhắn\n        iframe.contentWindow.postMessage({ type: 'sendMessage', message }, '*');\n    }\n};",
+          "responseText": "Let me compare these two code snippets and explain the differences:\n\n1. Your current code (from embed.js):\n\n```75:85:deploy1.2_EmbedWithColabMindpal/frontend/embed.js\n    window.chatbot = {\n        sendMessage: (message) => {\n            iframe.contentWindow.postMessage({ type: 'sendMessage', message }, '*');\n            iframe.style.display = 'block';  // Thêm dòng này\n            toggleButton.style.display = 'none';  // Thêm dòng này\n        },\n        showChat: () => {  // Thêm method mới\n            iframe.style.display = 'block';\n            toggleButton.style.display = 'none';\n        }\n    };    \n```\n\n\n2. The new proposed code adds these improvements:\n\n```javascript\nwindow.chatbot = {\n    sendMessage: async (message) => {\n        // Show chat interface first\n        iframe.style.display = 'block';\n        toggleButton.style.display = 'none';\n        \n        // Wait for UI update\n        await new Promise(resolve => setTimeout(resolve, 100));\n        \n        // Send message\n        iframe.contentWindow.postMessage({ type: 'sendMessage', message }, '*');\n    }\n};\n```\n\nKey improvements in the new code:\n1. Makes the function `async` to handle timing properly\n2. Adds a small delay (100ms) to ensure the UI is fully visible before sending the message\n3. Removes the redundant `showChat` method since its functionality is included in `sendMessage`\n4. Better code organization with comments explaining each step\n\nThe new code is better because:\n- It ensures the chat interface is visible before sending messages\n- The delay helps prevent race conditions where messages might be sent before the UI is ready\n- It's more maintainable with clear comments\n- It's more concise by combining the functionality into one method\n\nI recommend using the new code version as it provides a more robust solution for handling the chat interface visibility and message sending timing.",
+          "model": "claude-3.5-sonnet",
+          "timestamp": "2024-11-23T16:35:43.659Z",
+          "context": [
+            {
+              "context_type": "selection",
+              "key": "cbf3f2f7-42cb-4c22-9a6e-60bcecc13ea6",
+              "value": {
+                "human_readable": "d:\\OneDrive - Hanoi University of Science and Technology\\GIT\\MiniProd_UIChatbot_throughCallApiDIFY\\deploy1.2_EmbedWithColabMindpal\\frontend\\embed.js",
+                "uri": "d:\\OneDrive - Hanoi University of Science and Technology\\GIT\\MiniProd_UIChatbot_throughCallApiDIFY\\deploy1.2_EmbedWithColabMindpal\\frontend\\embed.js",
+                "range": {
+                  "startLine": 75,
+                  "startColumn": 1,
+                  "endLine": 85,
+                  "endColumn": 11
+                },
+                "text": "    window.chatbot = {\n        sendMessage: (message) => {\n            iframe.contentWindow.postMessage({ type: 'sendMessage', message }, '*');\n            iframe.style.display = 'block';  // Thêm dòng này\n            toggleButton.style.display = 'none';  // Thêm dòng này\n        },\n        showChat: () => {  // Thêm method mới\n            iframe.style.display = 'block';\n            toggleButton.style.display = 'none';\n        }\n    };    "
+              }
+            }
+          ],
+          "kv_store": {
+            "file_paths": [
+              "deploy1.2_EmbedWithColabMindpal/frontend/embed.js"
+            ],
+            "file_path_dict": {
+              "1": "deploy1.2_EmbedWithColabMindpal/frontend/embed.js"
+            }
+          }
+        },
+        {
+          "id": "6d0f5909-1da8-4c4a-ae82-1a81ac6c0297",
+          "messageText": "giải thích bằng tiếng việt công dụng từng dòng code ở code cũ và mới",
+          "responseText": "Tôi sẽ giải thích từng phần code:\n\n1. Code cũ trong `embed.js`:\n\n```75:85:deploy1.2_EmbedWithColabMindpal/frontend/embed.js\n    window.chatbot = {\n        sendMessage: (message) => {\n            iframe.contentWindow.postMessage({ type: 'sendMessage', message }, '*');\n            iframe.style.display = 'block';  // Thêm dòng này\n            toggleButton.style.display = 'none';  // Thêm dòng này\n        },\n        showChat: () => {  // Thêm method mới\n            iframe.style.display = 'block';\n            toggleButton.style.display = 'none';\n        }\n    };    \n```\n\n\nGiải thích:\n- `sendMessage`: Phương thức để gửi tin nhắn\n  - Gửi tin nhắn tới iframe thông qua postMessage\n  - Hiển thị khung chat (iframe)\n  - Ẩn nút toggle (icon chat)\n- `showChat`: Phương thức để hiển thị chat\n  - Hiển thị khung chat\n  - Ẩn nút toggle\n\n2. Code mới được đề xuất:\n```javascript\nwindow.chatbot = {\n    sendMessage: async (message) => {\n        // Đảm bảo chat được mở trước\n        iframe.style.display = 'block';\n        toggleButton.style.display = 'none';\n        \n        // Đợi một chút để giao diện cập nhật\n        await new Promise(resolve => setTimeout(resolve, 100));\n        \n        // Gửi tin nhắn\n        iframe.contentWindow.postMessage({ type: 'sendMessage', message }, '*');\n    }\n};\n```\n\nGiải thích:\n- Sử dụng `async/await` để xử lý bất đồng bộ\n- Thứ tự thực hiện được cải thiện:\n  1. Hiển thị khung chat trước\n  2. Ẩn nút toggle \n  3. Chờ 100ms để giao diện cập nhật hoàn tất\n  4. Sau đó mới gửi tin nhắn\n\nNhững cải tiến chính:\n1. Thêm delay 100ms để đảm bảo giao diện đã hiển thị hoàn tất trước khi gửi tin nhắn\n2. Sử dụng async/await để quản lý luồng thực thi tốt hơn\n3. Loại bỏ phương thức `showChat` vì chức năng đã được tích hợp vào `sendMessage`\n4. Code gọn gàng và dễ bảo trì hơn với các comment giải thích rõ ràng\n5. Tránh được tình trạng gửi tin nhắn khi giao diện chưa sẵn sàng",
+          "model": "claude-3.5-sonnet",
+          "timestamp": "2024-11-23T16:35:43.659Z",
+          "context": [],
+          "kv_store": {
+            "file_path_dict": {
+              "0": "deploy1.2_EmbedWithColabMindpal/frontend/embed.js",
+              "1": "deploy1.2_EmbedWithColabMindpal/frontend/embed.js"
+            },
+            "file_paths": [
+              "deploy1.2_EmbedWithColabMindpal/frontend/embed.js"
+            ]
+          }
         }
       ],
       "kv_store": {}
@@ -1420,8 +1523,8 @@
     "deletedPanelChatIDs": []
   },
   "kv_store": {
-    "unique_matched_lines_count": 683,
-    "total_repo_line_count": 6174,
+    "unique_matched_lines_count": 1121,
+    "total_repo_line_count": 7313,
     "best_prompt_response": {
       "prompt": "css cho text hiển thị",
       "response": "I'll help you style the text display in the chat interface. Here are the CSS styles for better text formatting:\n\n```css:deploy1.1/frontend/style.css\n// ... existing code ...\n\n.chat-window .message {\n    padding: 10px 15px;\n    margin: 8px 0;\n    border-radius: 15px;\n    max-width: 80%;\n    word-wrap: break-word;\n    line-height: 1.5;  /* Better line spacing */\n    font-size: 15px;   /* Comfortable reading size */\n}\n\n.chat-window .message.user {\n    background: #e3f2fd;\n    color: #1565c0;\n    margin-left: auto;\n    font-weight: 500;  /* Slightly bold */\n}\n\n.chat-window .message.bot {\n    background: #f5f5f5;\n    color: #333333;\n    margin-right: auto;\n    font-weight: 400;  /* Regular weight */\n}\n\n/* Style for code blocks inside messages */\n.chat-window .message pre {\n    background: #f8f9fa;\n    padding: 12px;\n    border-radius: 8px;\n    overflow-x: auto;\n    font-family: 'Consolas', 'Monaco', monospace;\n    font-size: 14px;\n    margin: 10px 0;\n}\n\n/* Style for inline code */\n.chat-window .message code {\n    background: #f8f9fa;\n    padding: 2px 6px;\n    border-radius: 4px;\n    font-family: 'Consolas', 'Monaco', monospace;\n    font-size: 14px;\n}\n\n/* Style for links in messages */\n.chat-window .message a {\n    color: #2196f3;\n    text-decoration: none;\n    border-bottom: 1px solid transparent;\n    transition: border-color 0.2s ease;\n}\n\n.chat-window .message a:hover {\n    border-bottom-color: #2196f3;\n}\n\n/* Style for lists in messages */\n.chat-window .message ul,\n.chat-window .message ol {\n    margin: 10px 0;\n    padding-left: 20px;\n}\n\n.chat-window .message li {\n    margin: 5px 0;\n}\n\n/* Style for markdown text */\n.chat-window .message strong {\n    font-weight: 600;\n}\n\n.chat-window .message em {\n    font-style: italic;\n}\n\n.chat-window .message blockquote {\n    border-left: 4px solid #ddd;\n    margin: 10px 0;\n    padding-left: 15px;\n    color: #666;\n}\n\n/* Style for timestamps or metadata */\n.message-time {\n    font-size: 12px;\n    color: #999;\n    margin-top: 5px;\n    text-align: right;\n}\n\n// ... existing code ...\n```\n\nKey features of these text styles:\n\n1. Basic text formatting:\n   - Comfortable line height and font size\n   - Different font weights for user and bot messages\n   - Good word wrapping and spacing\n\n2. Code formatting:\n   - Styled code blocks with scrolling\n   - Inline code styling\n   - Monospace font for code\n\n3. Link styling:\n   - Clean link appearance\n   - Subtle hover effect\n   - Good contrast\n\n4. List formatting:\n   - Proper spacing for lists\n   - Clear list item indentation\n\n5. Markdown support:\n   - Styles for bold and italic text\n   - Blockquote formatting\n   - Clean spacing for different elements\n\n6. Additional features:\n   - Timestamp styling\n   - Good contrast for readability\n   - Responsive text sizing\n\nThese styles will make your chat text clear, readable, and professionally formatted, especially when displaying code or formatted text.",
@@ -1690,8 +1793,86 @@
       {
         "file": "deploy1.1/frontend/style.css",
         "total_lines": 176,
-        "ai_generated_lines": 125,
-        "ai_generated_percentage": 71.02272727272727
+        "ai_generated_lines": 130,
+        "ai_generated_percentage": 73.86363636363636
+      },
+      {
+        "file": "deploy1.2_EmbedWithColabMindpal/backend/Dockerfile",
+        "total_lines": 12,
+        "ai_generated_lines": 6,
+        "ai_generated_percentage": 50
+      },
+      {
+        "file": "deploy1.2_EmbedWithColabMindpal/backend/app.py",
+        "total_lines": 108,
+        "ai_generated_lines": 86,
+        "ai_generated_percentage": 79.62962962962963
+      },
+      {
+        "file": "deploy1.2_EmbedWithColabMindpal/backend/requirements.txt",
+        "total_lines": 3,
+        "ai_generated_lines": 3,
+        "ai_generated_percentage": 100
+      },
+      {
+        "file": "deploy1.2_EmbedWithColabMindpal/docker-compose.yml",
+        "total_lines": 38,
+        "ai_generated_lines": 33,
+        "ai_generated_percentage": 86.8421052631579
+      },
+      {
+        "file": "deploy1.2_EmbedWithColabMindpal/frontend/Dockerfile",
+        "total_lines": 23,
+        "ai_generated_lines": 13,
+        "ai_generated_percentage": 56.52173913043478
+      },
+      {
+        "file": "deploy1.2_EmbedWithColabMindpal/frontend/embed.js",
+        "total_lines": 102,
+        "ai_generated_lines": 67,
+        "ai_generated_percentage": 65.68627450980392
+      },
+      {
+        "file": "deploy1.2_EmbedWithColabMindpal/frontend/index.html",
+        "total_lines": 27,
+        "ai_generated_lines": 24,
+        "ai_generated_percentage": 88.88888888888889
+      },
+      {
+        "file": "deploy1.2_EmbedWithColabMindpal/frontend/package.json",
+        "total_lines": 12,
+        "ai_generated_lines": 12,
+        "ai_generated_percentage": 100
+      },
+      {
+        "file": "deploy1.2_EmbedWithColabMindpal/frontend/script.js",
+        "total_lines": 92,
+        "ai_generated_lines": 54,
+        "ai_generated_percentage": 58.69565217391305
+      },
+      {
+        "file": "deploy1.2_EmbedWithColabMindpal/frontend/style.css",
+        "total_lines": 191,
+        "ai_generated_lines": 134,
+        "ai_generated_percentage": 70.15706806282722
+      },
+      {
+        "file": "deploy1.2_EmbedWithColabMindpal/update2TuongTacVoiParentWindow.ipynb",
+        "total_lines": 53,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "deploy1.2_EmbedWithColabMindpal/update_closeXChatbot.ipynb",
+        "total_lines": 458,
+        "ai_generated_lines": 0,
+        "ai_generated_percentage": 0
+      },
+      {
+        "file": "example-embed-web-DIFY.html",
+        "total_lines": 20,
+        "ai_generated_lines": 1,
+        "ai_generated_percentage": 5
       },
       {
         "file": "example-website.html",

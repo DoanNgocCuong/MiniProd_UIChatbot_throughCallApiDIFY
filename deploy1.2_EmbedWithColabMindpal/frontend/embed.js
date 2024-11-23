@@ -26,7 +26,7 @@ function initChatbot(options = {}) {
         cursor: pointer;
         box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         z-index: 999999;
-        display: none;
+        display: block;
     `;
     
     document.body.appendChild(toggleButton);
@@ -45,6 +45,7 @@ function initChatbot(options = {}) {
         border-radius: 10px;
         box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         z-index: 999999;
+        display: none;
     `;
     
     document.body.appendChild(iframe);
@@ -64,11 +65,50 @@ function initChatbot(options = {}) {
         }
     });
 
+    // window.chatbot = {
+    //     sendMessage: (message) => {
+    //         iframe.contentWindow.postMessage({ type: 'sendMessage', message }, '*');
+    //     }
+    // };
+
+    // Code mới
     window.chatbot = {
-        sendMessage: (message) => {
+        // sendMessage: (message) => {
+        //     // Gửi tin nhắn tới iframe thông qua postMessage
+        //     iframe.contentWindow.postMessage({ type: 'sendMessage', message }, '*');
+        //     iframe.style.display = 'block';  // Hiển thị khung chat (iframe)
+        //     toggleButton.style.display = 'none';  // Ẩn nút toggle (icon chat)
+        // },
+
+        sendMessage: async (message) => {
+            iframe.contentWindow.postMessage({ type: 'showChatbot' }, '*'); // Thêm dòng này
+            iframe.contentWindow.postMessage({ type: 'sendMessage', message }, '*');            
+            // Đảm bảo chat được mở trước
+            iframe.style.display = 'block';
+            toggleButton.style.display = 'none';
+            
+            // Đợi một chút để giao diện cập nhật
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            // Gửi tin nhắn
             iframe.contentWindow.postMessage({ type: 'sendMessage', message }, '*');
+        },
+
+        showChat: () => {  // để hiển thị chatbot để làm gì ?
+            iframe.contentWindow.postMessage({ type: 'showChatbot' }, '*'); // Thêm dòng này        
+            iframe.style.display = 'block'; // Hiển thị khung chat
+            toggleButton.style.display = 'none'; //Ẩn nút toggle
         }
-    };
+    };    
+
+    // Xử lý đóng chatbot
+    window.addEventListener('message', (event) => {
+        if (event.data?.type === 'closeChatbot') {
+            iframe.style.display = 'none';
+            toggleButton.style.display = 'block';
+        }
+    });
+
 }
 
 window.initChatbot = initChatbot;

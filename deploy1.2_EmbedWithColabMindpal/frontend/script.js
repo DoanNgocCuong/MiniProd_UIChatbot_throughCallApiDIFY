@@ -44,15 +44,21 @@ async function sendMessage(message) {
 }
 
 // Xử lý tin nhắn từ parent window
+// Xử lý tin nhắn từ parent window
 window.addEventListener('message', (event) => {
-    if (event.data && event.data.type === 'showChatbot') {
+    if (event.data?.type === 'showChatbot') {
         const chatContainer = document.querySelector('.chat-container');
         if (chatContainer) {
-            chatContainer.style.display = 'flex';  // Use flex to maintain the layout
+            chatContainer.style.display = 'flex';  // Đảm bảo hiển thị lại đúng layout
         }
     }
-    if (event.data && event.data.type === 'sendMessage') {
+    if (event.data?.type === 'sendMessage') {
         const message = event.data.message;
+        // Đảm bảo container được hiển thị trước khi gửi tin nhắn
+        const chatContainer = document.querySelector('.chat-container');
+        if (chatContainer) {
+            chatContainer.style.display = 'flex';
+        }
         sendMessage(message);
     }
 });
