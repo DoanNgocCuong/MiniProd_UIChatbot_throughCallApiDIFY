@@ -1,3 +1,4 @@
+// frontend/embed.js
 function initChatbot(options = {}) {
     const defaultOptions = {
         position: 'right',
