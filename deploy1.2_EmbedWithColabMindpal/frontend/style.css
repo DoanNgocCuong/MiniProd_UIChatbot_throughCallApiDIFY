@@ -10,7 +10,7 @@ body {
 }
 
 .chat-container {
-    width: 90%;
+    width: 100%;
     max-width: 800px;
     background: #ffffff;
     border-radius: 20px;
@@ -22,21 +22,33 @@ body {
 }
 
 .chat-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    text-align: center;
+    background-color: transparent;
     padding: 15px;
     border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.header-title {
+    flex-grow: 1;
+    font-size: 18px;
+    margin: 0;
+    color: black;
 }
 
 .chat-window {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
     min-height: 400px;
-    max-height: 70vh;
+    max-height: calc(100vh - 150px);
 }
 
 .chat-window .message {
@@ -88,18 +100,14 @@ body {
     border-radius: 0 0 10px 10px;
 }
 
-.chat-input input {
+.chat-input textarea {
     flex: 1;
     padding: 12px 15px;
     border: 2px solid #e0e0e0;
     border-radius: 10px;
     font-size: 14px;
-    transition: border-color 0.3s ease;
-}
-
-.chat-input input:focus {
-    outline: none;
-    border-color: #667eea;
+    resize: none; /* Prevent resizing */
+    height: 100px; /* Set height */
 }
 
 .chat-input button {
@@ -176,15 +184,97 @@ body {
     text-align: right;
 }
 
+/* Additional styles from test.html */
+.container {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    position: relative;
+}
 
-/* Nut close */
+.input-container {
+    padding: 10px; /* Add padding around the input box */
+    background: #ffffff; /* Background color for the input area */
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    height: 70px; /* Set height */
+    background: #f5f5f5;
+    border-radius: 6px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    position: relative;
+}
+
+.input-box textarea {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0 10px;
+    resize: none; /* Prevent resizing */
+    height: 100%; /* Fill the height */
+    overflow-y: auto; /* Allow scrolling if needed */
+}
+
+.send-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: #ddd;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.send-button:hover {
+    background: #ccc;
+}
+
+.send-button img {
+    width: 16px;
+    height: 16px;
+}
+
+/* Close button */
 .close-btn {
     background: none;
     border: none;
-    font-size: 16px;
     cursor: pointer;
-    color: red;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    padding: 0;
+    margin: 0;
 }
+
+.close-icon {
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.input-box .hint {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 5px;
+}
+.input-box textarea {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0 10px;
+    resize: none; /* Prevent resizing */
+    height: 100%; /* Fill the height */
+    overflow-y: auto; /* Allow scrolling if needed */
+}
+
